@@ -108,7 +108,10 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
   Widget showAlertDialog(BuildContext context) {
     // set up the buttons
     Widget cancelButton = ElevatedButton(
-      child: Text("Cancel",style: TextStyle(fontSize: 20),),
+      child: Text(
+        "Cancel",
+        style: TextStyle(fontSize: 20),
+      ),
       onPressed: () {
         Navigator.of(context, rootNavigator: true).pop();
       },
@@ -129,9 +132,9 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
               .delete();
         }
         FirebaseFirestore.instance
-              .collection('users')
-              .doc(FirebaseAuth.instance.currentUser.uid)
-              .delete();
+            .collection('users')
+            .doc(FirebaseAuth.instance.currentUser.uid)
+            .delete();
         Navigator.of(context, rootNavigator: true).pop();
         signOutGoogle();
         signOut();
@@ -175,15 +178,6 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    // name.text = "Viresh";
-
-    // print(name.text);
-    // print(email.text);
-    // print(age.text);
-    // print(mobileNo.text);
-    // print(address.text);
-    // print(medicalHistory.text);
-
     return Scaffold(
         body: Container(
       color: Colors.white,
@@ -191,56 +185,6 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
         children: <Widget>[
           Column(
             children: <Widget>[
-              // Container(
-              //   height: 250.0,
-              //   color: Colors.white,
-              //   child: Column(
-              //     children: <Widget>[
-              //       Padding(
-              //         padding: EdgeInsets.only(top: 20.0),
-              //         child: Stack(fit: StackFit.loose, children: <Widget>[
-              //           Row(
-              //             crossAxisAlignment: CrossAxisAlignment.center,
-              //             mainAxisAlignment: MainAxisAlignment.center,
-              //             children: <Widget>[
-              //               Container(
-              //                   width: 140.0,
-              //                   height: 140.0,
-              //                   decoration: BoxDecoration(
-              //                     shape: BoxShape.circle,
-              //                     image: DecorationImage(
-              //                       image:
-              //                           ExactAssetImage('assets/images/as.png'),
-              //                       // NetworkImage(userPhotoURL),
-
-              //                       fit: BoxFit.cover,
-              //                     ),
-              //                   )),
-              //             ],
-              //           ),
-              //           Padding(
-              //               padding: EdgeInsets.only(top: 90.0, right: 100.0),
-              //               child: Row(
-              //                 mainAxisAlignment: MainAxisAlignment.center,
-              //                 children: <Widget>[
-              //                   GestureDetector(
-              //                     child: CircleAvatar(
-              //                       backgroundColor: Colors.indigo,
-              //                       radius: 25.0,
-              //                       child: Icon(
-              //                         Icons.camera_alt,
-              //                         color: Colors.white,
-              //                       ),
-              //                     ),
-              //                     onTap: () => Text("Pressed"),
-              //                   )
-              //                 ],
-              //               )),
-              //         ]),
-              //       )
-              //     ],
-              //   ),
-              // ),
               Container(
                 color: Color(0xffFFFFFF),
                 child: Padding(
@@ -669,7 +613,10 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
                             child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               primary: Colors.red[700]),
-                          child: Text("Delete Account",style: TextStyle(fontSize: 20),),
+                          child: Text(
+                            "Delete Account",
+                            style: TextStyle(fontSize: 20),
+                          ),
                           // textColor: Colors.white,
                           // color: Colors.red,
                           onPressed: () {
@@ -714,7 +661,10 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
               padding: EdgeInsets.only(right: 10.0),
               child: Container(
                   child: ElevatedButton(
-                child: Text("Save",style: TextStyle(fontSize: 20),),
+                child: Text(
+                  "Save",
+                  style: TextStyle(fontSize: 20),
+                ),
                 // textColor: Colors.white,
                 // color: Colors.green,
                 onPressed: () {
@@ -763,7 +713,10 @@ class _ProfileState extends State<Profile> with SingleTickerProviderStateMixin {
               padding: EdgeInsets.only(left: 10.0),
               child: Container(
                   child: ElevatedButton(
-                child: Text("Cancel",style: TextStyle(fontSize: 20),),
+                child: Text(
+                  "Cancel",
+                  style: TextStyle(fontSize: 20),
+                ),
                 // textColor: Colors.white,
                 // color: Colors.red,
                 onPressed: () {

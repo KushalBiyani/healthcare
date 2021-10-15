@@ -17,8 +17,8 @@ class HospitalDetails extends StatefulWidget {
   String usernameController,
       number,
       address; //if you have multiple values add here
-  double lattitude, longitude;
-  HospitalDetails(this.usernameController, this.lattitude, this.longitude,
+  double latitude, longitude;
+  HospitalDetails(this.usernameController, this.latitude, this.longitude,
       this.number, this.address,
       {Key key})
       : super(key: key); //add also..example this.abc,this...
@@ -110,7 +110,6 @@ class _HospitalDetailsState extends State<HospitalDetails> {
       body: Container(
         padding: EdgeInsets.fromLTRB(0, 60, 0, 0),
         child: Column(children: [
-         
           CarouselSlider(
             items: imageSliders,
             options: CarouselOptions(
@@ -142,24 +141,30 @@ class _HospitalDetailsState extends State<HospitalDetails> {
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 5, 0, 15),
-            child: Text(widget.usernameController,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 20,),),
+            child: Text(
+              widget.usernameController,
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
           ),
-           RatingBar.builder(
-   initialRating: 4.5,
-   minRating: 1,
-   direction: Axis.horizontal,
-   allowHalfRating: true,
-   itemCount: 5,
-   itemSize: 20.0,
-   itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-   itemBuilder: (context, _) => Icon(
-     Icons.star,
-     color: Colors.amber,
-   ),
-   onRatingUpdate: (rating) {
-     print(rating);
-   },
-),
+          RatingBar.builder(
+            initialRating: 4.5,
+            minRating: 1,
+            direction: Axis.horizontal,
+            allowHalfRating: true,
+            itemCount: 5,
+            itemSize: 20.0,
+            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+            itemBuilder: (context, _) => Icon(
+              Icons.star,
+              color: Colors.amber,
+            ),
+            onRatingUpdate: (rating) {
+              print(rating);
+            },
+          ),
           Padding(
             padding: const EdgeInsets.fromLTRB(0, 5, 0, 10),
             child: Row(children: [
@@ -169,7 +174,7 @@ class _HospitalDetailsState extends State<HospitalDetails> {
                     // mainAxisAlignment: MainAxisAlignment.start,
                     // crossAxisAlignment: CrossAxisAlignment.start,
 
-                    children: [Icon(Icons.access_time,color: Colors.indigo)]),
+                    children: [Icon(Icons.access_time, color: Colors.indigo)]),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
@@ -177,11 +182,19 @@ class _HospitalDetailsState extends State<HospitalDetails> {
                   // mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("  OPEN TODAY  ",style:TextStyle(fontSize: 15,color: Colors.indigo,backgroundColor: Colors.indigo.withOpacity(0.4))),
+                    Text("  OPEN TODAY  ",
+                        style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.indigo,
+                            backgroundColor: Colors.indigo.withOpacity(0.4))),
                     SizedBox(height: 5),
-                    Text("08:00 AM - 10:00 PM ",style: TextStyle(fontSize: 15),),
+                    Text(
+                      "08:00 AM - 10:00 PM ",
+                      style: TextStyle(fontSize: 15),
+                    ),
                     SizedBox(height: 5),
-                    Text("ALL TIMINGS",style: TextStyle(fontSize: 15,color: Colors.indigo)),
+                    Text("ALL TIMINGS",
+                        style: TextStyle(fontSize: 15, color: Colors.indigo)),
                   ],
                 ),
               )
@@ -197,7 +210,12 @@ class _HospitalDetailsState extends State<HospitalDetails> {
                     // mainAxisAlignment: MainAxisAlignment.start,
                     // crossAxisAlignment: CrossAxisAlignment.start,
 
-                    children: [Icon(Icons.location_on,color: Colors.indigo,)]),
+                    children: [
+                      Icon(
+                        Icons.location_on,
+                        color: Colors.indigo,
+                      )
+                    ]),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),
@@ -207,8 +225,11 @@ class _HospitalDetailsState extends State<HospitalDetails> {
                   children: [
                     // Text("Address:",style:TextStyle(fontSize: 15)),
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 0, 0,10),
-                      child: Container(width:300,child: Text(widget.address,maxLines: 2,style:TextStyle(fontSize: 15))),
+                      padding: const EdgeInsets.fromLTRB(0, 0, 0, 10),
+                      child: Container(
+                          width: 300,
+                          child: Text(widget.address,
+                              maxLines: 2, style: TextStyle(fontSize: 15))),
                     ),
                     // Row(
                     //                     children: [Expanded(
@@ -223,7 +244,7 @@ class _HospitalDetailsState extends State<HospitalDetails> {
                     // )
                     GestureDetector(
                       onTap: () {
-                        MapUtils.openMap(widget.lattitude, widget.longitude);
+                        MapUtils.openMap(widget.latitude, widget.longitude);
                       }, // handle your image tap here
                       child: Image.asset(
                         'assets/images/map.jpg',
@@ -244,18 +265,20 @@ class _HospitalDetailsState extends State<HospitalDetails> {
           //   textColor: Colors.black,
           //   padding: const EdgeInsets.all(5.0),
           // ),
-           ElevatedButton(
-             style: ElevatedButton.styleFrom(
-    primary: Colors.indigo // background
-    // onPrimary: Colors.white, // foreground
-  ),
-                onPressed: () => setState(() {
-                  String a = widget.number;
-                  // print("number $a");
-                  _launched = _makePhoneCall('tel: $a');
-                }),
-                child: const Text('Make phone call',style: TextStyle(fontSize:18),),
-              ),
+          ElevatedButton(
+            style: ElevatedButton.styleFrom(primary: Colors.indigo // background
+                // onPrimary: Colors.white, // foreground
+                ),
+            onPressed: () => setState(() {
+              String a = widget.number;
+              // print("number $a");
+              _launched = _makePhoneCall('tel: $a');
+            }),
+            child: const Text(
+              'Make phone call',
+              style: TextStyle(fontSize: 18),
+            ),
+          ),
         ]),
       ),
     );

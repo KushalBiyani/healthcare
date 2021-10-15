@@ -9,7 +9,6 @@ final List<String> imgList = [
   'https://res.cloudinary.com/du8msdgbj/image/upload/l_watermark_346,w_480,h_480/a_ignore,w_480,h_480,c_fit,q_auto,f_auto/v1600089615/cropped/y1jvnzpcbt82bakcfw2f.jpg',
   'https://res.cloudinary.com/du8msdgbj/image/upload/l_watermark_346,w_690,h_700/a_ignore,w_690,h_700,c_pad,q_auto,f_auto/v1537457265/ko6rsu9xwrdb7hrmmszr.jpg',
   'https://www.practostatic.com/practopedia-v2-images/res-750/a0d397a1196c2c92ef1ffa24db024e28b11657bc1.jpg',
-  
 ];
 
 class MedicineDetails extends StatefulWidget {
@@ -35,7 +34,6 @@ class _MedicineDetailsState extends State<MedicineDetails> {
       isAddedColor = value.exists;
       isAddedText = value.exists;
     });
-    // return isMedicinePresent;
   }
 
   int _current = 0;
@@ -201,18 +199,19 @@ class _MedicineDetailsState extends State<MedicineDetails> {
                 children: [
                   Container(
                       child: Row(
-                        children: [
-                          Image(
-                    width: 50,
-                    height: 50,
-                    image: AssetImage("assets/images/capsule.png"),
-                  ),Text(
-                    "$name",
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                  ),
-                        ],
-                      )),
-                  
+                    children: [
+                      Image(
+                        width: 50,
+                        height: 50,
+                        image: AssetImage("assets/images/capsule.png"),
+                      ),
+                      Text(
+                        "$name",
+                        style: TextStyle(
+                            fontSize: 15, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  )),
                   Container(
                       decoration: BoxDecoration(
                         border: Border.all(
@@ -231,18 +230,21 @@ class _MedicineDetailsState extends State<MedicineDetails> {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
-                child: stock >1 ? ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      primary: isAddedColor ? Colors.green : Colors.indigo),
-                  // color: isAddedColor ? Colors.blue: Colors.red,
-                  // textColor: Colors.white,
-                  child: isAddedText
-                      ? Text("Remove From Cart")
-                      : Text("Add to Cart"),
-                  onPressed: addToCart,
-                ):Text("Out of Stock",style: TextStyle(fontSize: 15,color: Colors.red))
-              ),
+                  padding: const EdgeInsets.fromLTRB(5, 5, 5, 5),
+                  child: stock > 1
+                      ? ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              primary:
+                                  isAddedColor ? Colors.green : Colors.indigo),
+                          // color: isAddedColor ? Colors.blue: Colors.red,
+                          // textColor: Colors.white,
+                          child: isAddedText
+                              ? Text("Remove From Cart")
+                              : Text("Add to Cart"),
+                          onPressed: addToCart,
+                        )
+                      : Text("Out of Stock",
+                          style: TextStyle(fontSize: 15, color: Colors.red))),
               Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                 Text(
                   "Description",

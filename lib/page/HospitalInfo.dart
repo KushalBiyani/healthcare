@@ -18,27 +18,25 @@ class _HospitalInfoState extends State<HospitalInfo> {
   String searchString = '';
   String msg = '';
   var count = 0;
-  String lattitude,longitude,number,address,name ;
-
-
+  String latitude, longitude, number, address, name;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: GestureDetector(
-        onTap: () {
-          //here
-          FocusScope.of(context).unfocus();
-          new TextEditingController().clear();
-        },
-        child: SingleChildScrollView(
-          physics: ScrollPhysics(),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(children: [
+    double height = MediaQuery.of(context).size.height;
+    return SafeArea(
+      child: Scaffold(
+        body: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            GestureDetector(
+              onTap: () {
+                //here
+                FocusScope.of(context).unfocus();
+                new TextEditingController().clear();
+              },
+              child: Row(children: [
                 Container(
-                  width: 330,
+                  width: MediaQuery.of(context).size.width - 30,
                   height: 55,
                   padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
                   margin: EdgeInsets.fromLTRB(10, 15, 0, 15),
@@ -72,7 +70,10 @@ class _HospitalInfoState extends State<HospitalInfo> {
                   ),
                 ),
               ]),
-              Flexible(
+            ),
+            SingleChildScrollView(
+              physics: ScrollPhysics(),
+              child: Expanded(
                 child: StreamBuilder<QuerySnapshot>(
                   stream: (searchString == null || searchString.trim() == '')
                       ? FirebaseFirestore.instance
@@ -90,9 +91,9 @@ class _HospitalInfoState extends State<HospitalInfo> {
                       case ConnectionState.waiting:
                         return Center(
                           child: CircularProgressIndicator(
-                      valueColor: new AlwaysStoppedAnimation<Color>(
-                          Colors.indigo),
-                    ),
+                            valueColor: new AlwaysStoppedAnimation<Color>(
+                                Colors.indigo),
+                          ),
                         );
 
                       case ConnectionState.none:
@@ -103,8 +104,8 @@ class _HospitalInfoState extends State<HospitalInfo> {
 
                       default:
                         return Container(
+                          height: height - 245,
                           child: ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
                             itemCount: snapshot.data.docs.length,
                             itemBuilder: (context, index) {
@@ -117,26 +118,27 @@ class _HospitalInfoState extends State<HospitalInfo> {
                               if (a.startsWith(searchString) ||
                                   searchString.trim() == '') {
                                 return GestureDetector(
-                                  
                                   onTap: () {
                                     setState(() {
                                       name =
                                           hospitalslist.data()['hospital_name'];
-                                          lattitude =
-                                          hospitalslist.data()['lattitude'];
-                                          longitude =
+                                      latitude =
+                                          hospitalslist.data()['latitude'];
+                                      longitude =
                                           hospitalslist.data()['longitude'];
-                                          number = hospitalslist.data()['phone'];
-                                          address = hospitalslist.data()['address'];
-                                          // DocumentSnapshot variable = FirebaseFirestore.instance.doc("$name").get();
-                                      print("name:$lattitude");
+                                      number = hospitalslist.data()['phone'];
+                                      address = hospitalslist.data()['address'];
                                     });
 
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => HospitalDetails(name,double.parse(lattitude),double.parse(longitude),number,address),
-                                      ),
+                                          builder: (context) => HospitalDetails(
+                                              name,
+                                              double.parse(latitude),
+                                              double.parse(longitude),
+                                              number,
+                                              address)),
                                     );
                                   },
                                   child: Container(
@@ -220,8 +222,8 @@ class _HospitalInfoState extends State<HospitalInfo> {
                   },
                 ),
               ),
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );

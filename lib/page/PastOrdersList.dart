@@ -107,8 +107,9 @@ class _PastOrdersListState extends State<PastOrdersList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:AppBar(title: Text("Your Orders"
-        ),),
+      appBar: AppBar(
+        title: Text("Your Orders"),
+      ),
       body: SingleChildScrollView(
         physics: ScrollPhysics(),
         child: Column(
@@ -119,7 +120,8 @@ class _PastOrdersListState extends State<PastOrdersList> {
                 stream: FirebaseFirestore.instance
                     .collection('cart')
                     .doc(FirebaseAuth.instance.currentUser.uid)
-                    .collection('pastOrder').orderBy('id', descending: true)
+                    .collection('pastOrder')
+                    .orderBy('id', descending: true)
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
@@ -141,10 +143,9 @@ class _PastOrdersListState extends State<PastOrdersList> {
 
                     default:
                       return Padding(
-                        padding: const EdgeInsets.only(top:10),
+                        padding: const EdgeInsets.only(top: 10),
                         child: Container(
                           child: Column(children: [
-                           
                             ListView.builder(
                               physics: NeverScrollableScrollPhysics(),
                               shrinkWrap: true,
@@ -164,7 +165,7 @@ class _PastOrdersListState extends State<PastOrdersList> {
                                     //   print("  price form db "+currentList.data()['price'].toString());
 
                                     //   // DocumentSnapshot variable = FirebaseFirestore.instance.doc("$name").get();
-                                    //   // print("name:$lattitude");
+                                    //   // print("name:$latitude");
                                     // });
 
                                     Navigator.push(
@@ -189,8 +190,8 @@ class _PastOrdersListState extends State<PastOrdersList> {
                                         border: Border.all(
                                           color: Colors.grey[400],
                                         ),
-                                        borderRadius:
-                                            BorderRadius.all(Radius.circular(15)),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(15)),
                                       ),
                                       child: Row(
                                         mainAxisAlignment:
@@ -212,10 +213,11 @@ class _PastOrdersListState extends State<PastOrdersList> {
                                                     color: Colors.grey[200],
                                                     borderRadius:
                                                         BorderRadius.all(
-                                                            Radius.circular(15)),
+                                                            Radius.circular(
+                                                                15)),
                                                     image: DecorationImage(
                                                       image: AssetImage(
-                                              "assets/images/honitus.png"),
+                                                          "assets/images/honitus.png"),
                                                       fit: BoxFit.fill,
                                                     ),
                                                   ),
@@ -225,7 +227,8 @@ class _PastOrdersListState extends State<PastOrdersList> {
                                                       10, 20, 0, 0),
                                                   child: Column(
                                                     crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     mainAxisAlignment:
                                                         MainAxisAlignment.start,
                                                     children: [
@@ -247,11 +250,18 @@ class _PastOrdersListState extends State<PastOrdersList> {
                                                         padding:
                                                             EdgeInsets.fromLTRB(
                                                                 0, 15, 0, 30),
-                                                        child: Text("₹" +
-                                                            currentList
-                                                                .data()[
-                                                                    'totalPrice']
-                                                                .toString(),style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),),
+                                                        child: Text(
+                                                          "₹" +
+                                                              currentList
+                                                                  .data()[
+                                                                      'totalPrice']
+                                                                  .toString(),
+                                                          style: TextStyle(
+                                                              fontSize: 20,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
                                                       ),
                                                     ],
                                                   ),

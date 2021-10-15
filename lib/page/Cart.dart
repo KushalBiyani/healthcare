@@ -30,7 +30,7 @@ class _CartState extends State<Cart> {
   String searchString = '';
   String msg = '';
   var count = 0;
-  String lattitude, longitude, number, address, name;
+  String latitude, longitude, number, address, name;
   // var totalPrice = 1;
   // dynamic removeFromCart(currentOrdersId) {
   //   print("current");
@@ -60,7 +60,7 @@ class _CartState extends State<Cart> {
   //   });
   // }
 
-  int tot ;
+  int tot;
   var aaa;
   CollectionReference _collectionRef = FirebaseFirestore.instance
       .collection('cart')
@@ -77,16 +77,13 @@ class _CartState extends State<Cart> {
     tot = 0;
     allData.forEach(
         (element) => tot = tot + element['price'] * element['quantity']);
-    print("this is "+tot.toString());
-    aaa=DateTime.now();
-    print("after calling func"+aaa.toString());
+    print("this is " + tot.toString());
+    aaa = DateTime.now();
+    print("after calling func" + aaa.toString());
     // setState(() {
-        
+
     // });
   }
-
-
-  
 
   @override
   void initState() {
@@ -102,8 +99,9 @@ class _CartState extends State<Cart> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar:AppBar(title: Text("Cart"
-        ),),
+      appBar: AppBar(
+        title: Text("Cart"),
+      ),
       body: SingleChildScrollView(
         physics: ScrollPhysics(),
         child: Column(
@@ -136,7 +134,7 @@ class _CartState extends State<Cart> {
                     default:
                       return Container(
                         child: Padding(
-                          padding: const EdgeInsets.only(top:20),
+                          padding: const EdgeInsets.only(top: 20),
                           child: Column(children: [
                             ListView.builder(
                               physics: NeverScrollableScrollPhysics(),
@@ -162,8 +160,8 @@ class _CartState extends State<Cart> {
                                         border: Border.all(
                                           color: Colors.grey[400],
                                         ),
-                                        borderRadius:
-                                            BorderRadius.all(Radius.circular(15)),
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(15)),
                                       ),
                                       child: Row(
                                         mainAxisAlignment:
@@ -185,10 +183,11 @@ class _CartState extends State<Cart> {
                                                     color: Colors.grey[200],
                                                     borderRadius:
                                                         BorderRadius.all(
-                                                            Radius.circular(15)),
+                                                            Radius.circular(
+                                                                15)),
                                                     image: DecorationImage(
                                                       image: AssetImage(
-                                              "assets/images/honitus.png"),
+                                                          "assets/images/honitus.png"),
                                                       fit: BoxFit.fill,
                                                     ),
                                                   ),
@@ -198,7 +197,8 @@ class _CartState extends State<Cart> {
                                                       10, 20, 0, 0),
                                                   child: Column(
                                                     crossAxisAlignment:
-                                                        CrossAxisAlignment.start,
+                                                        CrossAxisAlignment
+                                                            .start,
                                                     mainAxisAlignment:
                                                         MainAxisAlignment.start,
                                                     children: [
@@ -239,19 +239,28 @@ class _CartState extends State<Cart> {
                                                 0, 10, 5, 0),
                                             child: Column(children: [
                                               Counter(
-                                                  initialValue: currentOrdersList
-                                                      .data()['quantity'],
+                                                  initialValue:
+                                                      currentOrdersList
+                                                          .data()['quantity'],
                                                   minValue: 1,
                                                   maxValue: currentOrdersList
                                                       .data()['stock'],
                                                   step: 1,
                                                   decimalPlaces: 0,
                                                   onChanged: (value) {
-                                                      tot = tot + currentOrdersList
-                                                      .data()['price']*value;
-                                                       tot = tot - currentOrdersList
-                                                      .data()['price']*currentOrdersList.data()['quantity'];
-                                                      
+                                                    tot = tot +
+                                                        currentOrdersList
+                                                                    .data()[
+                                                                'price'] *
+                                                            value;
+                                                    tot = tot -
+                                                        currentOrdersList
+                                                                    .data()[
+                                                                'price'] *
+                                                            currentOrdersList
+                                                                    .data()[
+                                                                'quantity'];
+
                                                     setState(() {
                                                       var quantity, stock;
                                                       FirebaseFirestore.instance
@@ -289,24 +298,23 @@ class _CartState extends State<Cart> {
                                                       });
                                                       // abhishek bhingle
                                                       // _counter = value;
-                                                      
-                                                    //    aaa=DateTime.now();
-                                                    //       print("before calling func"+aaa.toString());
-                                                    //   findTotalPrice();
-                                                      
-                                                    // print("this is viru"+tot.toString()); 
-                                                       
-                                                    
-                                                    // Timer(Duration(seconds: 0),
-                                                    //     () {
-                                                    //       print("this is abhi");
-                                                    //       aaa=DateTime.now();
-                                                    //       print("before calling func"+aaa.toString());
-                                                    //   findTotalPrice();
-                                                      
-                                                    // print("this is viru"+tot.toString());
-                                                    // });
-                                                    // findTotalPrice();
+
+                                                      //    aaa=DateTime.now();
+                                                      //       print("before calling func"+aaa.toString());
+                                                      //   findTotalPrice();
+
+                                                      // print("this is viru"+tot.toString());
+
+                                                      // Timer(Duration(seconds: 0),
+                                                      //     () {
+                                                      //       print("this is abhi");
+                                                      //       aaa=DateTime.now();
+                                                      //       print("before calling func"+aaa.toString());
+                                                      //   findTotalPrice();
+
+                                                      // print("this is viru"+tot.toString());
+                                                      // });
+                                                      // findTotalPrice();
                                                     });
 
                                                     // Timer.periodic(
@@ -316,21 +324,28 @@ class _CartState extends State<Cart> {
                                                     // });
                                                   }),
                                               ElevatedButton(
-                                                
                                                   onPressed: () {
                                                     setState(() {
-                                                      
-                                                    tot = tot - currentOrdersList
-                                                      .data()['price']*currentOrdersList.data()['quantity'];
+                                                      tot = tot -
+                                                          currentOrdersList
+                                                                      .data()[
+                                                                  'price'] *
+                                                              currentOrdersList
+                                                                      .data()[
+                                                                  'quantity'];
                                                     });
-                                                    print("happpy"+tot.toString());
+                                                    print("happpy" +
+                                                        tot.toString());
                                                     FirebaseFirestore.instance
                                                         .collection("cart")
-                                                        .doc(FirebaseAuth.instance
-                                                            .currentUser.uid)
+                                                        .doc(FirebaseAuth
+                                                            .instance
+                                                            .currentUser
+                                                            .uid)
                                                         .collection(
                                                             "currentOrder")
-                                                        .doc(currentOrdersList.id)
+                                                        .doc(currentOrdersList
+                                                            .id)
                                                         .delete();
                                                   },
                                                   child: Text("Delete"))
@@ -345,7 +360,7 @@ class _CartState extends State<Cart> {
                                 }
                               },
                             ),
-                              
+
                             // Text(tot.toString()),
                           ]),
                         ),
@@ -360,9 +375,17 @@ class _CartState extends State<Cart> {
       bottomNavigationBar: Container(
         height: 45.0,
         color: Colors.white,
-        child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround,children: [
-          Text("Total Price "+"₹" + tot.toString(),style: TextStyle(fontSize:20,fontWeight: FontWeight.bold),),
-          ElevatedButton(onPressed: makePayment, child: Text("Proceed to Buy",style: TextStyle(fontSize: 18),)),
+        child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+          Text(
+            "Total Price " + "₹" + tot.toString(),
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          ElevatedButton(
+              onPressed: makePayment,
+              child: Text(
+                "Proceed to Buy",
+                style: TextStyle(fontSize: 18),
+              )),
         ]),
       ),
     );

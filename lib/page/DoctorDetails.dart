@@ -72,7 +72,6 @@ class _DoctorDetailsState extends State<DoctorDetails> {
       'email': user.email,
       'friends': friendList,
       'createdAt': DateTime.now().millisecondsSinceEpoch.toString(),
-      'chattingWith': null,
       'online': null
     });
   }

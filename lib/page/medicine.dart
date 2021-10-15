@@ -44,12 +44,6 @@ class Medicine extends StatefulWidget {
 }
 
 class _MedicineState extends State<Medicine>
-
-
-
-
-
-
     with SingleTickerProviderStateMixin {
   final List<Widget> imageSliders = imgList
       .map((item) => Container(
@@ -186,8 +180,9 @@ class _MedicineState extends State<Medicine>
                                         Image(
                                           width: 150,
                                           height: 120,
-                                          image: AssetImage(
-                                              "assets/images/honitus.png"),
+                                          image: NetworkImage(
+                                              medicineList[index]
+                                                  .data()['img']),
                                         ),
                                         Text(
                                           medicineList[index].data()['name'],
@@ -258,7 +253,7 @@ class _MedicineState extends State<Medicine>
                         child: Padding(
                           padding: const EdgeInsets.only(left: 10),
                           child: Padding(
-                            padding: const EdgeInsets.only(top:5),
+                            padding: const EdgeInsets.only(top: 5),
                             child: Text(
                               "In the Spotlight",
                               style: TextStyle(
@@ -273,15 +268,14 @@ class _MedicineState extends State<Medicine>
                       Align(
                           alignment: Alignment.topLeft,
                           child: Padding(
-                            padding: const EdgeInsets.fromLTRB( 10,0,0,5),
+                            padding: const EdgeInsets.fromLTRB(10, 0, 0, 5),
                             child: Text(
                                 "Explore deals, offers, health updates and more",
                                 style: TextStyle(
                                     color: Colors.white, fontSize: 15)),
                           )),
                       Container(
-                height: MediaQuery.of(context).size.height*.2,
-
+                        height: MediaQuery.of(context).size.height * .2,
                         child: CarouselSlider(
                           items: imageSliders,
                           options: CarouselOptions(
