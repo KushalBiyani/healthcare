@@ -204,7 +204,7 @@ class _MedicineState extends State<Medicine>
                   ),
                   new Text(
                     "No trip photos found.",
-                    style: Theme.of(context).textTheme.title,
+                    style: Theme.of(context).textTheme.headline6,
                   )
                 ],
               ));
