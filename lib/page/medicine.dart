@@ -13,26 +13,15 @@ final List<String> imgList = [
   'https://cms-contents.pharmeasy.in/banner/5927bf4933c-882949a523b-Softovac--category-banner.jpg',
   'https://cms-contents.pharmeasy.in/banner/27adc200d7e-Accuchek-CB.jpg',
   'https://cms-contents.pharmeasy.in/banner/89ab34cc536-Digital-Brufen_CB.jpg',
+  'https://www.desunhospital.com/backend/en/uploads/images/senior-discount.jpg',
+  'https://www.sbicard.com/sbi-card-en/assets/media/images/personal/offers/categories/lifestyle/apollo-hospitals/d-apollo.jpg',
+  'https://d168jcr2cillca.cloudfront.net/uploadimages/coupons/14346-Medicover_Hospitals_Health_Checkups_Coupon_1.png'
 ];
 
 String name = "";
 int _current = 0;
-// void main() => runApp(MyApp());
-
-// class MyApp extends StatelessWidget {
-//   // This widget is the root of your application.
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Flutter Demo',
-//       theme: ThemeData(
-
-//         primarySwatch: Colors.blue,
-//       ),
-//       home: MyHomePage(title: 'Flutter Demo Home Page'),
-//     );
-//   }
-// }
+TextEditingController textEditingController = TextEditingController();
+String searchString = '';
 
 class Medicine extends StatefulWidget {
   Medicine({Key key, this.title}) : super(key: key);
@@ -48,7 +37,6 @@ class _MedicineState extends State<Medicine>
   final List<Widget> imageSliders = imgList
       .map((item) => Container(
             child: Container(
-              margin: EdgeInsets.all(5.0),
               child: ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(5.0)),
                   child: Stack(
@@ -56,8 +44,8 @@ class _MedicineState extends State<Medicine>
                       Image.network(
                         item,
                         fit: BoxFit.cover,
-                        width: 500.0,
-                        height: 175,
+                        width: double.infinity,
+                        height: 210,
                       ),
                       Positioned(
                         bottom: 0.0,
@@ -102,9 +90,10 @@ class _MedicineState extends State<Medicine>
 
   @override
   Widget build(BuildContext context) {
-    // Trip photo widget template
     Widget medicineList = new StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection('medicine').snapshots(),
+        stream: (searchString == null || searchString.trim() == '')
+            ? FirebaseFirestore.instance.collection('medicine').snapshots()
+            : FirebaseFirestore.instance.collection('medicine').snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             return new Text(
@@ -125,8 +114,20 @@ class _MedicineState extends State<Medicine>
               List<DocumentSnapshot> medicineList;
 
               if (snapshot.hasData) {
-                medicineList = snapshot.data.docs;
-                // print(medicineList);
+                medicineList = [];
+                if (searchString.length > 0) {
+                  for (int i = 0; i < snapshot.data.docs.length; i++) {
+                    if (snapshot.data.docs[i]
+                        .data()['name']
+                        .toString()
+                        .toUpperCase()
+                        .startsWith(searchString)) {
+                      medicineList.add(snapshot.data.docs[i]);
+                    }
+                  }
+                } else {
+                  medicineList = snapshot.data.docs;
+                }
                 totalPhotosCount = medicineList.length;
 
                 if (totalPhotosCount > 0) {
@@ -146,8 +147,6 @@ class _MedicineState extends State<Medicine>
                               onTap: () {
                                 setState(() {
                                   name = medicineList[index].id;
-
-                                  // DocumentSnapshot variable = FirebaseFirestore.instance.doc("$name").get();
                                   print("name:$name");
                                 });
 
@@ -162,18 +161,6 @@ class _MedicineState extends State<Medicine>
                                   child: Column(
                                       mainAxisSize: MainAxisSize.min,
                                       children: <Widget>[
-                                    // ClipRect(
-                                    //   child: Align(
-                                    //       alignment: Alignment.topCenter,
-                                    //       heightFactor: 0.7,
-                                    //       child: new CachedNetworkImage(
-                                    //         placeholder: (context, url) =>
-                                    //         new CircularProgressIndicator(),
-                                    //         imageUrl:
-                                    //         medicineList[index].data['url'],
-                                    //       )),
-                                    // ),
-
                                     Container(
                                       padding: const EdgeInsets.all(8),
                                       child: Column(children: [
@@ -232,65 +219,84 @@ class _MedicineState extends State<Medicine>
         });
 
     return Scaffold(
-        // appBar: AppBar(
-        //   // Here we take the value from the MyHomePage object that was created by
-        //   // the App.build method, and use it to set our appbar title.
-        //   // title: Text(widget.title),
-        // ),
         body: GestureDetector(
           child: SingleChildScrollView(
             physics: ScrollPhysics(),
             child: Column(
               children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: Container(
-                    color: Colors.purple[900],
-                    height: 250,
-                    child: Column(children: [
-                      Align(
-                        alignment: Alignment.topLeft,
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 10),
-                          child: Padding(
-                            padding: const EdgeInsets.only(top: 5),
-                            child: Text(
-                              "In the Spotlight",
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
-                            ),
+                Container(
+                  color: Colors.purple[900],
+                  height: 230,
+                  child: Column(children: [
+                    Align(
+                      alignment: Alignment.center,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: Text(
+                          "In the Spotlight",
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 25),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 5),
+                    Container(
+                      height: MediaQuery.of(context).size.height * .2,
+                      child: CarouselSlider(
+                        items: imageSliders,
+                        options: CarouselOptions(
+                            autoPlay: true,
+                            enlargeCenterPage: true,
+                            aspectRatio: 2.5,
+                            onPageChanged: (index, reason) {
+                              _current = index;
+                            }),
+                      ),
+                    ),
+                  ]),
+                ),
+                GestureDetector(
+                  onTap: () {
+                    //here
+                    FocusScope.of(context).unfocus();
+                    new TextEditingController().clear();
+                  },
+                  child: Row(children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width - 30,
+                      height: 55,
+                      padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                      margin: EdgeInsets.fromLTRB(10, 15, 0, 0),
+                      child: TextFormField(
+                        onChanged: (val) {
+                          setState(() {
+                            searchString = val.toUpperCase();
+                          });
+                        },
+                        controller: textEditingController,
+                        textAlign: TextAlign.center,
+                        decoration: InputDecoration(
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: const BorderSide(
+                                color: Color.fromRGBO(246, 245, 243, 1.0),
+                                width: 0.0),
                           ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: const BorderSide(
+                                color: Color.fromRGBO(246, 245, 243, 1.0),
+                                width: 0.0),
+                          ),
+                          hintText: "Search Products",
+                          filled: true,
+                          fillColor: Colors.grey[200],
                         ),
                       ),
-                      SizedBox(height: 5),
-                      Align(
-                          alignment: Alignment.topLeft,
-                          child: Padding(
-                            padding: const EdgeInsets.fromLTRB(10, 0, 0, 5),
-                            child: Text(
-                                "Explore deals, offers, health updates and more",
-                                style: TextStyle(
-                                    color: Colors.white, fontSize: 15)),
-                          )),
-                      Container(
-                        height: MediaQuery.of(context).size.height * .2,
-                        child: CarouselSlider(
-                          items: imageSliders,
-                          options: CarouselOptions(
-                              autoPlay: true,
-                              enlargeCenterPage: true,
-                              aspectRatio: 2.0,
-                              onPageChanged: (index, reason) {
-                                _current = index;
-                                // setState(() {
-                                // });
-                              }),
-                        ),
-                      ),
-                    ]),
-                  ),
+                    ),
+                  ]),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 10),

@@ -113,7 +113,6 @@ class _HospitalInfoState extends State<HospitalInfo> {
                                   snapshot.data.docs[index];
                               String a = hospitalslist.data()['hospital_name'];
                               a = a.toUpperCase();
-                              // print(a);
 
                               if (a.startsWith(searchString) ||
                                   searchString.trim() == '') {
@@ -170,7 +169,7 @@ class _HospitalInfoState extends State<HospitalInfo> {
                                                 Radius.circular(15)),
                                             image: DecorationImage(
                                               image: NetworkImage(
-                                                  "https://mk0ehealtheletsj3t14.kinstacdn.com/wp-content/uploads/2009/07/best-hospital-in-south-india.jpg"),
+                                                  hospitalslist.data()['img']),
                                               fit: BoxFit.fill,
                                             ),
                                           ),

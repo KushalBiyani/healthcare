@@ -97,7 +97,6 @@ class _DoctorDetailsState extends State<DoctorDetails> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
-        // height: MediaQuery.of(context).size.height*.8,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Form(
@@ -118,10 +117,6 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                     hintText: 'eg.Dermatologist',
                     labelText: 'Speciality Field  *',
                   ),
-                  // onSaved: (String? value) {
-                  //   // This optional block of code can be used to run
-                  //   // code when the user saves the form.
-                  // },
                   validator: (value) {
                     return (value.isEmpty
                         ? "Please Enter Speciality Field "
@@ -132,13 +127,8 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                   controller: data2,
                   decoration: const InputDecoration(
                     icon: Icon(Icons.home, color: Colors.indigo),
-                    // hintText: 'What do people call you?',
                     labelText: 'Hospital Name *',
                   ),
-                  // onSaved: (String? value) {
-                  //   // This optional block of code can be used to run
-                  //   // code when the user saves the form.
-                  // },
                   validator: (value) {
                     return (value.isEmpty
                         ? "Please Enter Hospital Name"
@@ -151,15 +141,9 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                   controller: data3,
                   decoration: const InputDecoration(
                     counterText: "",
-
                     icon: Icon(Icons.phone, color: Colors.indigo),
-                    // hintText: 'What do people call you?',
                     labelText: 'Contact *',
                   ),
-                  // onSaved: (String? value) {
-                  //   // This optional block of code can be used to run
-                  //   // code when the user saves the form.
-                  // },
                   validator: (value) {
                     return (value.isEmpty
                         ? "Please Enter contact number"
@@ -173,10 +157,6 @@ class _DoctorDetailsState extends State<DoctorDetails> {
                     hintText: 'in years',
                     labelText: 'Experience *',
                   ),
-                  // onSaved: (String? value) {
-                  //   // This optional block of code can be used to run
-                  //   // code when the user saves the form.
-                  // },
                   validator: (value) {
                     return (value.isEmpty ? "Please Enter Experience" : null);
                   },

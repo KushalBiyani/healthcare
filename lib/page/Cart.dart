@@ -4,13 +4,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_counter/flutter_counter.dart';
-import 'package:my_app/page/HospitalDetails.dart';
-import 'package:my_app/page/MedicineDetails.dart';
 import 'package:my_app/page/Payment.dart';
 
-import 'MedicineDetails.dart';
-
-// import 'package:flutter_counter/flutter_counter.dart';
 class Cart extends StatefulWidget {
   Cart({Key key}) : super(key: key);
 
@@ -19,7 +14,6 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
-  // MedicineDetails.check();
   num _counter = 0;
   num _defaultValue = 1;
   String text = '';
@@ -31,19 +25,6 @@ class _CartState extends State<Cart> {
   String msg = '';
   var count = 0;
   String latitude, longitude, number, address, name;
-  // var totalPrice = 1;
-  // dynamic removeFromCart(currentOrdersId) {
-  //   print("current");
-  //   print(currentOrdersId);
-
-  //   FirebaseFirestore.instance
-  //       .collection("cart")
-  //       .doc(FirebaseAuth.instance.currentUser.uid)
-  //       .collection("currentOrder")
-  //       .doc(currentOrdersId)
-  //       .delete();
-  // }
-
   void makePayment() {
     Navigator.push(
       context,
@@ -52,13 +33,6 @@ class _CartState extends State<Cart> {
       ),
     );
   }
-
-  // void findTotalPrice(){
-  //   setState(() {
-  //   totalPrice = totalPrice + 1;
-
-  //   });
-  // }
 
   int tot;
   var aaa;
@@ -145,8 +119,6 @@ class _CartState extends State<Cart> {
                                     snapshot.data.docs[index];
                                 String a = currentOrdersList.data()['name'];
                                 a = a.toUpperCase();
-                                // print(a);
-
                                 if (a.startsWith(searchString) ||
                                     searchString.trim() == '') {
                                   return Padding(
@@ -186,8 +158,9 @@ class _CartState extends State<Cart> {
                                                             Radius.circular(
                                                                 15)),
                                                     image: DecorationImage(
-                                                      image: AssetImage(
-                                                          "assets/images/honitus.png"),
+                                                      image: NetworkImage(
+                                                          currentOrdersList
+                                                              .data()['url']),
                                                       fit: BoxFit.fill,
                                                     ),
                                                   ),
@@ -279,9 +252,6 @@ class _CartState extends State<Cart> {
                                                             .data()['quantity'];
                                                         print(quantity);
                                                       });
-                                                      // totalPrice = totalPrice + currentOrdersList
-                                                      // .data()['quantity']*currentOrdersList
-                                                      // .data()['price'];
                                                       FirebaseFirestore.instance
                                                           .collection('cart')
                                                           .doc(FirebaseAuth
@@ -294,34 +264,8 @@ class _CartState extends State<Cart> {
                                                               .id)
                                                           .update({
                                                         "quantity": value,
-                                                        // 'email' : email.text,
                                                       });
-                                                      // abhishek bhingle
-                                                      // _counter = value;
-
-                                                      //    aaa=DateTime.now();
-                                                      //       print("before calling func"+aaa.toString());
-                                                      //   findTotalPrice();
-
-                                                      // print("this is viru"+tot.toString());
-
-                                                      // Timer(Duration(seconds: 0),
-                                                      //     () {
-                                                      //       print("this is abhi");
-                                                      //       aaa=DateTime.now();
-                                                      //       print("before calling func"+aaa.toString());
-                                                      //   findTotalPrice();
-
-                                                      // print("this is viru"+tot.toString());
-                                                      // });
-                                                      // findTotalPrice();
                                                     });
-
-                                                    // Timer.periodic(
-                                                    //     Duration(seconds: 10),
-                                                    //     (timer) {
-                                                    //   findTotalPrice();
-                                                    // });
                                                   }),
                                               ElevatedButton(
                                                   onPressed: () {
@@ -360,8 +304,6 @@ class _CartState extends State<Cart> {
                                 }
                               },
                             ),
-
-                            // Text(tot.toString()),
                           ]),
                         ),
                       );

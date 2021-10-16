@@ -88,14 +88,6 @@ class _HospitalDetailsState extends State<HospitalDetails> {
           ))
       .toList();
 
-  // _makingPhoneCall() async {
-  //   const url = 'tel:123456789';
-  //   if (await canLaunch(url)) {
-  //     await launch(url);
-  //   } else {
-  //     throw 'Could not launch $url';
-  //   }
-  // }
   Future<void> _makePhoneCall(String url) async {
     if (await canLaunch(url)) {
       await launch(url);
@@ -171,15 +163,11 @@ class _HospitalDetailsState extends State<HospitalDetails> {
               Padding(
                 padding: const EdgeInsets.fromLTRB(5, 0, 0, 37),
                 child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.start,
-                    // crossAxisAlignment: CrossAxisAlignment.start,
-
                     children: [Icon(Icons.access_time, color: Colors.indigo)]),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
                 child: Column(
-                  // mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text("  OPEN TODAY  ",
@@ -206,16 +194,12 @@ class _HospitalDetailsState extends State<HospitalDetails> {
             child: Row(children: [
               Padding(
                 padding: const EdgeInsets.fromLTRB(5, 0, 0, 130),
-                child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.start,
-                    // crossAxisAlignment: CrossAxisAlignment.start,
-
-                    children: [
-                      Icon(
-                        Icons.location_on,
-                        color: Colors.indigo,
-                      )
-                    ]),
+                child: Column(children: [
+                  Icon(
+                    Icons.location_on,
+                    color: Colors.indigo,
+                  )
+                ]),
               ),
               Padding(
                 padding: const EdgeInsets.fromLTRB(10, 0, 0, 0),

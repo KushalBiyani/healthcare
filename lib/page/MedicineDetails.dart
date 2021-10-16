@@ -1,15 +1,7 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_app/page/Cart.dart';
-
-final List<String> imgList = [
-  'https://res.cloudinary.com/du8msdgbj/image/upload/l_watermark_346,w_480,h_480/a_ignore,w_480,h_480,c_fit,q_auto,f_auto/v1600089604/cropped/pn7apngctvrtweencwi1.jpg',
-  'https://res.cloudinary.com/du8msdgbj/image/upload/l_watermark_346,w_480,h_480/a_ignore,w_480,h_480,c_fit,q_auto,f_auto/v1600089615/cropped/y1jvnzpcbt82bakcfw2f.jpg',
-  'https://res.cloudinary.com/du8msdgbj/image/upload/l_watermark_346,w_690,h_700/a_ignore,w_690,h_700,c_pad,q_auto,f_auto/v1537457265/ko6rsu9xwrdb7hrmmszr.jpg',
-  'https://www.practostatic.com/practopedia-v2-images/res-750/a0d397a1196c2c92ef1ffa24db024e28b11657bc1.jpg',
-];
 
 class MedicineDetails extends StatefulWidget {
   String id;
@@ -36,44 +28,10 @@ class _MedicineDetailsState extends State<MedicineDetails> {
     });
   }
 
-  int _current = 0;
   bool isAddedColor = false;
   bool isAddedText = false;
-  final List<Widget> imageSliders = imgList
-      .map((item) => Container(
-            child: Container(
-              margin: EdgeInsets.all(5.0),
-              child: ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
-                  child: Stack(
-                    children: <Widget>[
-                      Image.network(item, fit: BoxFit.cover, width: 1000.0),
-                      Positioned(
-                        bottom: 0.0,
-                        left: 0.0,
-                        right: 0.0,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                Color.fromARGB(200, 0, 0, 0),
-                                Color.fromARGB(0, 0, 0, 0)
-                              ],
-                              begin: Alignment.bottomCenter,
-                              end: Alignment.topCenter,
-                            ),
-                          ),
-                          padding: EdgeInsets.symmetric(
-                              vertical: 10.0, horizontal: 20.0),
-                        ),
-                      ),
-                    ],
-                  )),
-            ),
-          ))
-      .toList();
 
-  String name, description;
+  String name, description, url;
   int price, stock;
   Future<void> fetchData() async {
     try {
@@ -86,6 +44,7 @@ class _MedicineDetailsState extends State<MedicineDetails> {
         price = value.data()['price'];
         description = value.data()['description'];
         stock = value.data()['stock'];
+        url = value.data()['img'];
       });
     } catch (e) {
       print(e);
@@ -117,7 +76,8 @@ class _MedicineDetailsState extends State<MedicineDetails> {
         'price': price,
         'quantity': 1,
         'stock': stock,
-        'medicineId': widget.id
+        'medicineId': widget.id,
+        'url': url,
       });
     } else {
       FirebaseFirestore.instance
@@ -127,20 +87,6 @@ class _MedicineDetailsState extends State<MedicineDetails> {
           .doc(widget.id)
           .delete();
     }
-
-    // FirebaseFirestore.instance
-    //     .collection("doctorinfo")
-    //     .doc(FirebaseAuth.instance.currentUser.uid)
-    //     .set({
-    //   'speciality': data1.text,
-    //   'hospital_name': data2.text,
-    //   'contact': data3.text,
-    //   'experience': data4.text,
-    //   'degree_url': fileUrl,
-    //   'name':name,
-    //   'email':email,
-    //   'degree':data5.text
-    // });
   }
 
   void viewCart() {
@@ -164,35 +110,13 @@ class _MedicineDetailsState extends State<MedicineDetails> {
           child: Padding(
             padding: const EdgeInsets.fromLTRB(8, 20, 8, 8),
             child: Column(children: [
-              CarouselSlider(
-                items: imageSliders,
-                options: CarouselOptions(
-                    autoPlay: true,
-                    enlargeCenterPage: true,
-                    aspectRatio: 2.0,
-                    onPageChanged: (index, reason) {
-                      setState(() {
-                        _current = index;
-                      });
-                    }),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: imgList.map((url) {
-                  int index = imgList.indexOf(url);
-                  return Container(
-                    width: 8.0,
-                    height: 8.0,
-                    margin:
-                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: _current == index
-                          ? Color.fromRGBO(0, 0, 0, 0.9)
-                          : Color.fromRGBO(0, 0, 0, 0.4),
-                    ),
-                  );
-                }).toList(),
+              Container(
+                padding: const EdgeInsets.only(bottom: 20),
+                height: 250,
+                child: ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(5.0)),
+                  child: Image.network(url, fit: BoxFit.cover, width: 1000.0),
+                ),
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -208,7 +132,7 @@ class _MedicineDetailsState extends State<MedicineDetails> {
                       Text(
                         "$name",
                         style: TextStyle(
-                            fontSize: 15, fontWeight: FontWeight.bold),
+                            fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                     ],
                   )),
@@ -218,11 +142,10 @@ class _MedicineDetailsState extends State<MedicineDetails> {
                           color: Colors.indigo,
                           width: 5,
                         ),
-                        // color: Colors.grey[200],
                         borderRadius: BorderRadius.all(Radius.circular(5)),
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.all(4.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: Text("₹ $price",
                             style: TextStyle(
                                 fontSize: 15, fontWeight: FontWeight.bold)),
@@ -236,8 +159,6 @@ class _MedicineDetailsState extends State<MedicineDetails> {
                           style: ElevatedButton.styleFrom(
                               primary:
                                   isAddedColor ? Colors.green : Colors.indigo),
-                          // color: isAddedColor ? Colors.blue: Colors.red,
-                          // textColor: Colors.white,
                           child: isAddedText
                               ? Text("Remove From Cart")
                               : Text("Add to Cart"),
@@ -248,30 +169,34 @@ class _MedicineDetailsState extends State<MedicineDetails> {
               Row(mainAxisAlignment: MainAxisAlignment.start, children: [
                 Text(
                   "Description",
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                 )
               ]),
               Container(
                   decoration: BoxDecoration(
                     border: Border.all(
-                      color: Colors.grey[400],
+                      color: Colors.grey[200],
                       width: 5,
                     ),
-                    // color: Colors.grey[200],
                     borderRadius: BorderRadius.all(Radius.circular(15)),
                   ),
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text("$description"),
+                    child: Text(
+                      "$description",
+                      style: TextStyle(fontSize: 18),
+                    ),
                   ))
             ]),
           ),
         ),
       ),
       bottomNavigationBar: Container(
-        height: 40.0,
+        height: 50.0,
         color: Colors.indigo,
-        child: ElevatedButton(onPressed: viewCart, child: Text("View Cart")),
+        child: ElevatedButton(
+            onPressed: viewCart,
+            child: Text("View Cart", style: TextStyle(fontSize: 20))),
       ),
     );
   }
