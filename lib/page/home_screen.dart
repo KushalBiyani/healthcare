@@ -11,7 +11,7 @@ class HomeScreen extends StatefulWidget {
     MenuItem(tr("Medical"), Icons.store, 0),
     MenuItem(tr("Profile"), Icons.person, 1),
     MenuItem(tr("Hospitals"), Icons.local_hospital, 2),
-    MenuItem(tr("Doctor Details"), Icons.sticky_note_2, 3),
+    MenuItem(tr("Doctors"), Icons.sticky_note_2, 3),
   ];
 
   @override
