@@ -157,36 +157,39 @@ class _HospitalDetailsState extends State<HospitalDetails> {
               print(rating);
             },
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(0, 5, 0, 10),
-            child: Row(children: [
-              Padding(
-                padding: const EdgeInsets.fromLTRB(5, 0, 0, 37),
-                child: Column(
-                    children: [Icon(Icons.access_time, color: Colors.indigo)]),
-              ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text("  OPEN TODAY  ",
-                        style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.indigo,
-                            backgroundColor: Colors.indigo.withOpacity(0.4))),
-                    SizedBox(height: 5),
-                    Text(
-                      "08:00 AM - 10:00 PM ",
-                      style: TextStyle(fontSize: 15),
-                    ),
-                    SizedBox(height: 5),
-                    Text("ALL TIMINGS",
-                        style: TextStyle(fontSize: 15, color: Colors.indigo)),
-                  ],
+          SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0, 5, 0, 10),
+              child: Row(children: [
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(5, 0, 0, 37),
+                  child: Column(children: [
+                    Icon(Icons.access_time, color: Colors.indigo)
+                  ]),
                 ),
-              )
-            ]),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(10, 10, 0, 0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("  OPEN TODAY  ",
+                          style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.indigo,
+                              backgroundColor: Colors.indigo.withOpacity(0.4))),
+                      SizedBox(height: 5),
+                      Text(
+                        "08:00 AM - 10:00 PM ",
+                        style: TextStyle(fontSize: 15),
+                      ),
+                      SizedBox(height: 5),
+                      Text("ALL TIMINGS",
+                          style: TextStyle(fontSize: 15, color: Colors.indigo)),
+                    ],
+                  ),
+                )
+              ]),
+            ),
           ),
           Divider(),
           Padding(

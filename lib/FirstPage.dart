@@ -96,8 +96,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         // ),
         PageViewModel(
           title: "Interractive UI",
-          body:
-              "Instantly locate hospitals and order medicines",
+          body: "Instantly locate hospitals and order medicines",
           image: _buildImage('img2.jpg'),
           decoration: pageDecoration,
         ),
@@ -116,7 +115,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         PageViewModel(
           title: "Know the thoughts of the Experts",
           body:
-              "Be updated with the Blog system from the world's top doctors",
+              "Be updated with the Calling system from the world's top doctors",
           image: _buildImage('img3.jpg'),
           decoration: pageDecoration,
         ),
@@ -153,7 +152,6 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         //   ),
         //   decoration: pageDecoration,
         // ),
-        
       ],
       onDone: () => _onIntroEnd(context),
       //onSkip: () => _onIntroEnd(context), // You can override onSkip callback
@@ -175,7 +173,6 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
         color: Colors.purple,
         activeSize: Size(22.0, 10.0),
         activeShape: RoundedRectangleBorder(
-          
           borderRadius: BorderRadius.all(Radius.circular(25.0)),
         ),
       ),
