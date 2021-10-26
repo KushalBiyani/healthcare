@@ -203,7 +203,7 @@ class _MedicineState extends State<Medicine>
                     padding: const EdgeInsets.only(top: 50.0),
                   ),
                   new Text(
-                    "No trip photos found.",
+                    "Medicine Details Not found.",
                     style: Theme.of(context).textTheme.headline6,
                   )
                 ],
@@ -214,7 +214,7 @@ class _MedicineState extends State<Medicine>
           }
 
           return Container(
-            child: new Text("No trip photos found."),
+            child: new Text("Medicine Details Not found."),
           );
         });
 
