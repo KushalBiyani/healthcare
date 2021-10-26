@@ -128,7 +128,7 @@ class _StoriesState extends State<Stories> {
                     text: TextSpan(
                       text: blogContent.data()['degree'],
                       style: TextStyle(
-                        color: Colors.purple,
+                        color: Colors.black87,
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
                         height: 1.3,
@@ -149,14 +149,14 @@ class _StoriesState extends State<Stories> {
                             fontWeight: FontWeight.w600,
                           ),
                         ),
-                        TextSpan(
-                          text: '\n' + blogContent.data()['contact'],
-                          style: TextStyle(
-                            color: Colors.black45,
-                            fontWeight: FontWeight.w400,
-                            fontSize: 18,
-                          ),
-                        ),
+                        // TextSpan(
+                        //   text: '\n' + blogContent.data()['contact'],
+                        //   style: TextStyle(
+                        //     color: Colors.black45,
+                        //     fontWeight: FontWeight.w400,
+                        //     fontSize: 18,
+                        //   ),
+                        // ),
                         TextSpan(
                           text: '\n' + blogContent.data()['speciality'],
                           style: TextStyle(
