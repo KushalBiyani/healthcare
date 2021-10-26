@@ -61,108 +61,16 @@ class _StoriesState extends State<Stories> {
                   switch (snapshot.connectionState) {
                     default:
                       return Container(
+                        height: MediaQuery.of(context).size.height * 0.8,
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(30, 10, 30, 10),
                           child: ListView.builder(
-                            physics: NeverScrollableScrollPhysics(),
                             shrinkWrap: true,
                             itemCount: snapshot.data.docs.length,
                             itemBuilder: (context, index) {
                               DocumentSnapshot blogContent =
                                   snapshot.data.docs[index];
-                              return Container(
-                                  child: Column(children: [
-                                Container(
-                                  child: Padding(
-                                    padding:
-                                        EdgeInsets.fromLTRB(10, 10, 20, 10),
-                                    child: Text(
-                                      'Dr. ' + blogContent.data()['name'],
-                                      style: TextStyle(fontSize: 20),
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.fromLTRB(20, 5, 10, 5),
-                                  child: Row(
-                                    // row for content
-                                    children: [
-                                      Expanded(
-                                          child: Text(
-                                        "Degree : ",
-                                      )),
-                                      Expanded(
-                                          child: Text(
-                                        blogContent.data()['degree'],
-                                      ))
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.fromLTRB(20, 5, 10, 5),
-                                  child: Row(
-                                    // row for content
-                                    children: [
-                                      Expanded(
-                                          child: Text(
-                                        "Experience :",
-                                      )),
-                                      Expanded(
-                                          child: Text(
-                                        blogContent.data()['experience'],
-                                      ))
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.fromLTRB(20, 5, 10, 5),
-                                  child: Row(
-                                    // row for content
-                                    children: [
-                                      Expanded(
-                                          child: Text(
-                                        "Mobile No :",
-                                      )),
-                                      Expanded(
-                                          child: Text(
-                                        blogContent.data()['contact'],
-                                      ))
-                                    ],
-                                  ),
-                                ),
-                                Padding(
-                                  padding: EdgeInsets.fromLTRB(20, 5, 10, 10),
-                                  child: Row(
-                                    // row for content
-                                    children: [
-                                      Expanded(
-                                          child: Text(
-                                        "Specialist :",
-                                      )),
-                                      Expanded(
-                                          child: Text(
-                                        blogContent.data()['speciality'],
-                                      ))
-                                    ],
-                                  ),
-                                ),
-                                ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                      primary: Colors.indigo // background
-                                      // onPrimary: Colors.white, // foreground
-                                      ),
-                                  onPressed: () => setState(() {
-                                    String a = blogContent.data()['contact'];
-                                    // print("number $a");
-                                    _launched = _makePhoneCall('tel: $a');
-                                  }),
-                                  child: const Text(
-                                    'Make phone call',
-                                    style: TextStyle(fontSize: 16),
-                                  ),
-                                ),
-                                Divider(height: 15, thickness: 1),
-                              ]));
+                              return _specialistsCardInfo(blogContent);
                             },
                           ),
                         ),
@@ -173,6 +81,112 @@ class _StoriesState extends State<Stories> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _specialistsCardInfo(blogContent) {
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: 14.0, horizontal: 18.0),
+      margin: EdgeInsets.only(
+        bottom: 20.0,
+      ),
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12.0),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.2),
+              spreadRadius: 1.0,
+              blurRadius: 6.0,
+            ),
+          ]),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                margin: EdgeInsets.only(right: 12),
+                child: CircleAvatar(
+                  backgroundColor: Color(0xFFD9D9D9),
+                  backgroundImage: NetworkImage(blogContent.data()['photoUrl']),
+                  radius: 36.0,
+                ),
+              ),
+              SizedBox(
+                width: 10.0,
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  RichText(
+                    overflow: TextOverflow.clip,
+                    text: TextSpan(
+                      text: blogContent.data()['degree'],
+                      style: TextStyle(
+                        color: Colors.purple,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                        height: 1.3,
+                      ),
+                      children: <TextSpan>[
+                        TextSpan(
+                          text: '\nDr. ' +
+                              (blogContent.data()['name'].toString().length > 13
+                                  ? blogContent
+                                          .data()['name']
+                                          .toString()
+                                          .substring(0, 13) +
+                                      '...'
+                                  : blogContent.data()['name']),
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        TextSpan(
+                          text: '\n' + blogContent.data()['contact'],
+                          style: TextStyle(
+                            color: Colors.black45,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 18,
+                          ),
+                        ),
+                        TextSpan(
+                          text: '\n' + blogContent.data()['speciality'],
+                          style: TextStyle(
+                            color: Colors.black38,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  SizedBox(
+                    height: 6.0,
+                  ),
+                  ElevatedButton(
+                    style: ElevatedButton.styleFrom(primary: Colors.indigo),
+                    onPressed: () => setState(() {
+                      String a = blogContent.data()['contact'];
+                      _launched = _makePhoneCall('tel: $a');
+                    }),
+                    child: const Text(
+                      'Make phone call',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

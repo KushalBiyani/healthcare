@@ -310,6 +310,7 @@ class _MedicineState extends State<Medicine>
 
         //Init Floating Action Bubble
         floatingActionButton: FloatingActionBubble(
+          backGroundColor: Colors.deepPurpleAccent,
           // Menu items
           items: <Bubble>[
             // Floating action menu item

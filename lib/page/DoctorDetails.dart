@@ -63,7 +63,8 @@ class _DoctorDetailsState extends State<DoctorDetails> {
       'degree_url': fileUrl,
       'name': user.displayName,
       'email': user.email,
-      'degree': data5.text
+      'degree': data5.text,
+      'photoUrl': user.photoURL,
     });
     await FirebaseFirestore.instance.collection("users").doc(user.uid).set({
       'nickname': user.displayName,

@@ -13,7 +13,6 @@ import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:my_app/page/medicine.dart';
 import 'package:my_app/page/profile.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class PageStructure extends StatelessWidget {
   final String title;
@@ -57,46 +56,54 @@ class PageStructure extends StatelessWidget {
     final color = Theme.of(context).accentColor;
     final style = TextStyle(color: color);
 
-    return PlatformScaffold(
+    return Scaffold(
       backgroundColor: Colors.transparent,
-      appBar: PlatformAppBar(
-        automaticallyImplyLeading: false,
-        material: (_, __) => MaterialAppBarData(elevation: elevation),
-        title: PlatformText(
-          HomeScreen.mainMenu[_currentPage].title,
-        ),
-        leading: Transform.rotate(
-          angle: angle,
-          child: PlatformIconButton(
-            icon: Icon(
-              Icons.menu,
-            ),
-            onPressed: () {
-              ZoomDrawer.of(context).toggle();
-            },
+      appBar: PreferredSize(
+        preferredSize:
+            Size.fromHeight(MediaQuery.of(context).size.height * 0.08),
+        child: PlatformAppBar(
+          automaticallyImplyLeading: false,
+          material: (_, __) => MaterialAppBarData(elevation: elevation),
+          title: PlatformText(
+            HomeScreen.mainMenu[_currentPage].title,
           ),
-        ),
-        trailingActions: actions,
-      ),
-      bottomNavBar: PlatformNavBar(
-        currentIndex: _currentPage,
-        itemChanged: (index) =>
-            Provider.of<MenuProvider>(context, listen: false)
-                .updateCurrentPage(index),
-        items: HomeScreen.mainMenu
-            .map(
-              (item) => BottomNavigationBarItem(
-                title: Text(
-                  item.title,
-                  style: style,
-                ),
-                icon: Icon(
-                  item.icon,
-                  color: color,
-                ),
+          leading: Transform.rotate(
+            angle: angle,
+            child: PlatformIconButton(
+              icon: Icon(
+                Icons.menu,
               ),
-            )
-            .toList(),
+              onPressed: () {
+                ZoomDrawer.of(context).toggle();
+              },
+            ),
+          ),
+          trailingActions: actions,
+        ),
+      ),
+      bottomNavigationBar: PreferredSize(
+        preferredSize:
+            Size.fromHeight(MediaQuery.of(context).size.height * 0.08),
+        child: PlatformNavBar(
+          currentIndex: _currentPage,
+          itemChanged: (index) =>
+              Provider.of<MenuProvider>(context, listen: false)
+                  .updateCurrentPage(index),
+          items: HomeScreen.mainMenu
+              .map(
+                (item) => BottomNavigationBarItem(
+                  title: Text(
+                    item.title,
+                    style: style,
+                  ),
+                  icon: Icon(
+                    item.icon,
+                    color: color,
+                  ),
+                ),
+              )
+              .toList(),
+        ),
       ),
       body: kIsWeb
           ? container
