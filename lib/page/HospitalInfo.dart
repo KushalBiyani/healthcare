@@ -99,7 +99,7 @@ class _HospitalInfoState extends State<HospitalInfo> {
 
                     default:
                       return Container(
-                        height: height * 0.69,
+                        height: height * 0.67,
                         child: ListView.builder(
                           shrinkWrap: true,
                           itemCount: snapshot.data.docs.length,
